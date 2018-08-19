@@ -1,0 +1,3 @@
+D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/CMakeFiles/Legends_of_Code_and_Magic.dir
+D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/CMakeFiles/rebuild_cache.dir

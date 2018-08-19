@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Legends_of_Code_and_Magic"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Legends_of_Code_and_Magic">
+				<Option output="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Legends_of_Code_and_Magic.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/x86_64-w64-mingw32"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/backward"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/include"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/include-fixed"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 Legends_of_Code_and_Magic"/>
+					<CompileFile command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Legends_of_Code_and_Magic/fast">
+				<Option output="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Legends_of_Code_and_Magic.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/x86_64-w64-mingw32"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/backward"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/include"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/include-fixed"/>
+					<Add directory="D:/Forrit/Forritun/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 Legends_of_Code_and_Magic/fast"/>
+					<CompileFile command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Forrit/Forritun/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/main.cpp">
+			<Option target="Legends_of_Code_and_Magic"/>
+		</Unit>
+		<Unit filename="D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

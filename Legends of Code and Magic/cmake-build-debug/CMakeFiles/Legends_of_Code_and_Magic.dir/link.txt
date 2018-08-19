@@ -1,0 +1,3 @@
+C:\Users\Arnaldur\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\182.4129.15\bin\cmake\win\bin\cmake.exe -E remove -f CMakeFiles\Legends_of_Code_and_Magic.dir/objects.a
+D:\Forrit\Forritun\msys64\mingw64\bin\ar.exe cr CMakeFiles\Legends_of_Code_and_Magic.dir/objects.a @CMakeFiles\Legends_of_Code_and_Magic.dir\objects1.rsp
+D:\Forrit\Forritun\msys64\mingw64\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\Legends_of_Code_and_Magic.dir/objects.a -Wl,--no-whole-archive  -o Legends_of_Code_and_Magic.exe -Wl,--out-implib,libLegends_of_Code_and_Magic.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Legends_of_Code_and_Magic.dir\linklibs.rsp

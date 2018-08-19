@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Forrit/Forritun/Projects/Codingame/Legends of Code and Magic/main.cpp
+iostream
+-
+string
+-
+vector
+-
+algorithm
+-
+

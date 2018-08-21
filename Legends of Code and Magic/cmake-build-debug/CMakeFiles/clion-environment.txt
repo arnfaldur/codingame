@@ -1,4 +1,0 @@
-ToolSet: w64 6.0@D:\Forrit\Forritun\msys64\mingw64
-Options: 
-
-Options:

@@ -32,7 +32,14 @@ struct Player {
     int  rune;
     int  draw = 1;
     bool guarded;
+
+    friend ostream &operator<<(ostream &os, const Player &player) {
+        os << "health: " << player.health << " mana: " << player.mana << " deck: " << player.deck << " rune: "
+           << player.rune << " draw: " << player.draw << " guarded: " << player.guarded;
+        return os;
+    }
 };
+
 struct Card;
 
 struct Cards : vector<Card> {
@@ -62,6 +69,8 @@ struct Card { ;
     int       draw;
     bool      sickness;
 
+    friend ostream &operator<<(ostream &os, const Card &card);
+
     const static Card notFound;
 
     bool operator==(const Card &rhs) const;
@@ -70,6 +79,7 @@ struct Card { ;
 
     const float value() const {
         float result = weights[type];
+//        result += cost / 1.9f;
         result += weights[4] * atk;
         result += weights[5] * def;
         result += weights[6] * abilities[trample];
@@ -97,6 +107,13 @@ bool Card::operator==(const Card &rhs) const {
 
 bool Card::operator!=(const Card &rhs) const {
     return !(rhs == *this);
+}
+
+ostream &operator<<(ostream &os, const Card &card) {
+    os << "number: " << card.number << " id: " << card.id << " location: " << card.location << " type: " << card.type
+       << " cost: " << card.cost << " atk: " << card.atk << " def: " << card.def << " abilities: " << card.abilities
+       << " myhc: " << card.myhc << " ophc: " << card.ophc << " draw: " << card.draw << " sickness: " << card.sickness;
+    return os;
 }
 
 bool Cards::exists(const int id) const {
@@ -247,6 +264,7 @@ void State::act(const Action &action) {
         if (action.type == Action::summon) {
             doer.location = Card::myField;
             doer.sickness = !doer.abilities[Card::charge];
+            doer.myhc = doer.ophc = doer.draw = 0;
             checkGuards();
         } else if (action.type == Action::use) {
             if (action.target == -1) {
@@ -254,7 +272,11 @@ void State::act(const Action &action) {
             } else if (action.target != -1) {
                 Card &target = cards.getById(action.target);
                 if (doer.type == Card::greenItem) {
+                    bool wasCharge = target.abilities[Card::charge];
                     target.abilities |= doer.abilities;
+                    if (!wasCharge && target.abilities[Card::charge]) {
+                        target.sickness = false;
+                    }
                 } else if (doer.type == Card::redItem) {
                     target.abilities &= ~doer.abilities;
                 }
@@ -294,6 +316,9 @@ void State::readState() {
         card.location = (Card::Location) location;
         card.type     = (Card::Type) type;
         card.sickness = location == Card::hand;
+        if (card.location == Card::hand) {
+            card.myhc = card.ophc = card.draw = 0;
+        }
         for (int j = 0; j < abilities.size(); ++j) {
             if (abilities[j] != '-') {
                 card.abilities[j] = true;
@@ -315,10 +340,11 @@ const float State::fieldValue() const {
             }
         }
     }
-    return result + (float) me.health / 7.0f - (float) op.health / 7.0f;
+    return result + (float) me.health / 8.0f - (float) op.health / 2.0f;
 }
 
 void State::checkGuards() {
+    me.guarded = op.guarded = false;
     for (Card &card : cards) {
         if (card.location == Card::myField && card.def > 0) {
             me.guarded |= card.abilities[Card::guard];
@@ -328,51 +354,82 @@ void State::checkGuards() {
     }
 }
 
-Action findBestAction(const State &state) {
-    Actions         toTry;
+Actions findAllHandActions(const State&state) {
+
+}
+
+Actions findAllActions(const State &state) {
+    Actions         result;
     for (const Card &card: state.cards) {
         if (card.location == Card::hand && card.cost <= state.me.mana) {
             if (card.type == Card::creature && state.isValid(summon(card))) {
-                toTry.push_back(summon(card));
+                result.push_back(summon(card));
             } else if (card.type == Card::greenItem) {
                 for (const Card &target: state.cards) {
                     if (target.location == Card::myField && state.isValid(use(card, target))) {
-                        toTry.push_back(use(card, target));
+                        result.push_back(use(card, target));
                     }
                 }
             } else if (card.type == Card::redItem) {
                 for (const Card &target: state.cards) {
                     if (target.location == Card::opField && state.isValid(use(card, target))) {
-                        toTry.push_back(use(card, target));
+                        result.push_back(use(card, target));
                     }
                 }
             } else if (card.type == Card::blueItem) {
                 if (state.isValid(use(card))) {
-                    toTry.push_back(use(card));
+                    result.push_back(use(card));
                 }
                 for (const Card &target: state.cards) {
                     if (target.location == Card::opField && state.isValid(use(card, target))) {
-                        toTry.push_back(use(card, target));
+                        result.push_back(use(card, target));
                     }
                 }
             }
         } else if (card.location == Card::myField) {
             if (state.isValid(attack(card))) {
-                toTry.push_back(attack(card));
+                result.push_back(attack(card));
             }
             for (const Card &target: state.cards) {
                 if (target.location == Card::opField && state.isValid(attack(card, target))) {
-                    toTry.push_back(attack(card, target));
+                    result.push_back(attack(card, target));
                 }
             }
         }
     }
-    toTry.push_back(pass());
+    if (result.empty()) {
+        result.push_back(pass());
+    }
+    return result;
+}
+
+Action highestValueAction(const State &state) {
+    Actions     toTry     = findAllActions(state);
     Action      result;
     float       bestValue = -10000000;
     for (Action &action : toTry) {
         State s(state);
         s.act(action);
+        float val = s.fieldValue();
+        if (val > bestValue) {
+            bestValue = val;
+            result    = action;
+        }
+    }
+    return result;
+}
+
+Action findBestAction(const State &state) {
+    Actions toTry         = findAllActions(state);
+    cerr << toTry.size() << " possibilities" << endl;
+    Action      result;
+    float       bestValue = -10000000;
+    for (Action &action : toTry) {
+        State s(state);
+        s.act(action);
+        s.act(highestValueAction(s));
+        s.act(highestValueAction(s));
+        s.act(highestValueAction(s));
         float val = s.fieldValue();
         if (val > bestValue) {
             bestValue = val;
@@ -408,9 +465,11 @@ int main() {
             Card      &bestPick = state.cards[1];
             float     bestValue = 100;
             for (Card &card : state.cards) {
-                int cost = min(card.cost, 7);
-                if (card.value() - card.cost - curve[cost] / 4 < bestValue) {
-                    bestValue = card.value() - card.cost - curve[cost];
+                int cost = min(card.cost, 70);
+//                if ((card.value() - cost - (curve[cost] / 1.2f)) < bestValue) {
+//                bestValue = card.value() - card.cost - curve[cost];
+                if ((cost) > bestValue) {
+                    bestValue = cost;
                     bestPick  = card;
                 }
             }

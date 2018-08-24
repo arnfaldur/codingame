@@ -504,6 +504,19 @@ const Card &Cards::getById(const int id) const {
     return Card::notFound;
 }
 
+struct Scores : array<double, 160> {
+
+    friend ostream &operator<<(ostream &os, const Scores &scores) {
+        os << '[';
+        for (int i = 0; i < scores.size() - 1; ++i) {
+            os << scores[i] << ',';
+            if (i % 10 == 9) { cout << endl; }
+        }
+        os << scores[scores.size() - 1] << ']';
+        return os;
+    }
+};
+
 struct State;
 
 struct Action {
@@ -557,6 +570,8 @@ struct State {
     Cards  cards;
     Player me;
     Player op;
+
+    Scores scores;
 
     void clear() {
         cards.clear();
@@ -704,17 +719,15 @@ void State::readState() {
     cin.ignore();
     cin >> op.health >> op.mana >> op.deck >> op.rune;
     cin.ignore();
-    int opponentHand;
+    int opponentHand, cardCount;
     cin >> opponentHand;
     cin.ignore();
-    int cardCount;
     cin >> cardCount;
     cin.ignore();
-    cards.reserve(cardCount);
+    cards.reserve((unsigned long)cardCount);
     for (int i = 0; i < cardCount; i++) {
         Card   card;
-        int    location;
-        int    type;
+        int    location, type;
         string abilities;
         cin >> card.number >> card.id >> location >> type >> card.cost >> card.atk >> card.def
             >> abilities >> card.myhc >> card.ophc >> card.draw;
@@ -725,7 +738,7 @@ void State::readState() {
         card.location = (Card::Location) location;
         card.type     = (Card::Type) type;
         card.sickness = location == Card::Hand;
-        if (card.location == Card::Hand) {
+        if (card.location != Card::Hand) {
             card.myhc = card.ophc = card.draw = 0;
         }
         for (int j = 0; j < abilities.size(); ++j) {
@@ -743,7 +756,7 @@ const double State::fieldValue() const {
     int             opAttack = 0;
     for (const Card &card: cards) {
         if (card.location == Card::Hand && card.type != Card::Creature) {
-            result += bias;
+            result += card.value()/2;
         } else if (card.location == Card::MyField) {
             result += card.value();
             if (card.abilities[Card::Guard]) {
@@ -873,19 +886,6 @@ Actions findBestActions(const State &state) {
     return result;
 }
 
-struct Scores : array<double, 160> {
-
-    friend ostream &operator<<(ostream &os, const Scores &scores) {
-        os << '[';
-        for (int i = 0; i < scores.size() - 1; ++i) {
-            os << scores[i] << ',';
-            if (i % 10 == 9) { cout << endl; }
-        }
-        os << scores[scores.size() - 1] << ']';
-        return os;
-    }
-};
-
 const array<int, 160> draftGuide = {
         92, 63, 91, 55, 24, 2, 83, 64, 48, 1, 89, 93, 3, 39, 7, 49, 38, 65, 27, 110, 14, 94, 66, 4, 84, 31, 153, 8, 10,
         25, 5, 85, 20, 6, 53, 26, 160, 47, 41, 95, 42, 54, 86, 100, 40, 57, 30, 16, 71, 11, 96, 88, 113, 156, 143, 12,
@@ -926,6 +926,9 @@ struct Game {
         killer.deck.reserve(30);
         uniform_int_distribution<> dis(0, 2);
         for (int                   i = 0; i < 30; ++i) {
+            for (int j = 0; j < 3; ++j) {
+
+            }
             murder.deck.push_back(pickable[dis(mt)]);
             killer.deck.push_back(pickable[dis(mt)]);
             shuffle(pickable.begin(), pickable.end(), mt);
@@ -1024,19 +1027,20 @@ struct Game {
     }
 
     void act(const Actions &actions) {
-        Agent             &current = murderTurn ? murder : killer;
-        auto              val      = current.state.fieldValue();
-        vector<int>       doers;
+//        Agent             &current = murderTurn ? murder : killer;
+//        auto              val      = current.state.fieldValue();
+//        vector<int>       doers;
+        updateScores(actions);
         for (const Action &action : actions) {
-            if (action.type != Action::pass) {
-                doers.push_back(current.state.cards.getById(action.doer).number);
-            }
+//            if (action.type != Action::pass) {
+//                doers.push_back(current.state.cards.getById(action.doer).number);
+//            }
             act(action);
         }
-        val = current.state.fieldValue() - val;
-        for (int dr: doers) {
-            if (abs(val) < 5000) { current.scores.at(dr - 1) += val; }
-        }
+//        val = current.state.fieldValue() - val;
+//        for (int dr: doers) {
+//            if (abs(val) < 5000) { current.scores.at(dr - 1) += val; }
+//        }
     }
 
     int winner() {
@@ -1050,11 +1054,12 @@ struct Game {
     }
 
     void updateScores(const Actions &action) {
-//		for (const Card &card: current.state.cards) {
-//			if (card.location != Card::OpField) {
-//				current.scores.at(card.number - 1) = 1;
-//			}
-//		}
+        Agent             &current = murderTurn ? murder : killer;
+		for (const Card &card: current.state.cards) {
+			if (card.location != Card::OpField) {
+				current.scores.at(card.number - 1) = 1;
+			}
+		}
 //        for (const Action &action : actions) {
 //            if (action.type != Action::pass) {
 //                const Card &doer = current.state.cards.getById(action.doer);
@@ -1074,6 +1079,7 @@ Scores simulate(const int games) {
     Scores   scores = {};
     for (int iters  = 0; iters < games; ++iters) {
         Game     game;
+        game.start();
         while (game.winner() == 0) {
             game.turn();
             auto bla = findBestActions(game.currentState());
@@ -1096,7 +1102,7 @@ Scores simulate(const int games) {
 int main() {
 
     const bool testing       = true;
-    const bool multithreaded = true;
+    const bool multithreaded = false;
 
     //Game            game;
     State       init;

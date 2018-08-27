@@ -1,0 +1,7 @@
+[package]
+name = "wondev_woman"
+version = "0.1.0"
+authors = ["arnfaldur <aarnaldur@gmail.com>"]
+
+[dependencies]
+rand = "0.5"
